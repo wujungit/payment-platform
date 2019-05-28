@@ -6,6 +6,7 @@ import com.kanghe.payment.platform.mapper.PayChannelMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -28,17 +29,16 @@ public class PayChannelService {
         return payChannelMapper.updateByPrimaryKeySelective(payChannel);
     }
 
-//    public PayChannel selectPayChannel(String channelId, String mchId) {
-//        PayChannelExample example = new PayChannelExample();
-//        PayChannelExample.Criteria criteria = example.createCriteria();
-//        criteria.andChannelIdEqualTo(channelId);
-//        criteria.andMchIdEqualTo(mchId);
-//        List<PayChannel> payChannelList = payChannelMapper.selectByExample(example);
-//        if (CollectionUtils.isEmpty(payChannelList)) {
-//            return null;
-//        }
-//        return payChannelList.get(0);
-//    }
+    public PayChannel selectPayChannel(String channelId, String mchId) {
+        PayChannelDTO dto = new PayChannelDTO();
+        dto.setChannelId(channelId);
+        dto.setMchId(mchId);
+        List<PayChannel> payChannelList = payChannelMapper.selectList(dto);
+        if (CollectionUtils.isEmpty(payChannelList)) {
+            return null;
+        }
+        return payChannelList.get(0);
+    }
 
     public PayChannel selectPayChannel(int id) {
         return payChannelMapper.selectByPrimaryKey(id);

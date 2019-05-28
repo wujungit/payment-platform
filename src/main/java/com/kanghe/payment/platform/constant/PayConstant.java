@@ -9,15 +9,15 @@ import java.io.File;
  */
 public class PayConstant {
 
-    public final static String PAY_CHANNEL_WX_JSAPI = "WX_JSAPI";                // 微信公众号支付
-    public final static String PAY_CHANNEL_WX_NATIVE = "WX_NATIVE";                // 微信原生扫码支付
-    public final static String PAY_CHANNEL_WX_APP = "WX_APP";                    // 微信APP支付
-    public final static String PAY_CHANNEL_WX_MWEB = "WX_MWEB";                    // 微信H5支付
-    public final static String PAY_CHANNEL_IAP = "IAP";                            // 苹果应用内支付
-    public final static String PAY_CHANNEL_ALIPAY_MOBILE = "ALIPAY_MOBILE";        // 支付宝移动支付
-    public final static String PAY_CHANNEL_ALIPAY_PC = "ALIPAY_PC";                // 支付宝PC支付
-    public final static String PAY_CHANNEL_ALIPAY_WAP = "ALIPAY_WAP";            // 支付宝WAP支付
-    public final static String PAY_CHANNEL_ALIPAY_QR = "ALIPAY_QR";                // 支付宝当面付之扫码支付
+    public final static String PAY_CHANNEL_WX_JSAPI = "WX_JSAPI";             // 微信公众号支付
+    public final static String PAY_CHANNEL_WX_NATIVE = "WX_NATIVE";           // 微信原生扫码支付
+    public final static String PAY_CHANNEL_WX_APP = "WX_APP";                 // 微信APP支付
+    public final static String PAY_CHANNEL_WX_MWEB = "WX_MWEB";               // 微信H5支付
+    public final static String PAY_CHANNEL_IAP = "IAP";                       // 苹果应用内支付
+    public final static String PAY_CHANNEL_ALIPAY_MOBILE = "ALIPAY_MOBILE";   // 支付宝移动支付
+    public final static String PAY_CHANNEL_ALIPAY_PC = "ALIPAY_PC";           // 支付宝PC支付
+    public final static String PAY_CHANNEL_ALIPAY_WAP = "ALIPAY_WAP";         // 支付宝WAP支付
+    public final static String PAY_CHANNEL_ALIPAY_QR = "ALIPAY_QR";           // 支付宝当面付之扫码支付
 
     public final static String CHANNEL_NAME_WX = "WX";                // 渠道名称:微信
     public final static String CHANNEL_NAME_ALIPAY = "ALIPAY";        // 渠道名称:支付宝

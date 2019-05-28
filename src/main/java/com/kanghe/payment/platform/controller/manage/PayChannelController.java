@@ -40,7 +40,7 @@ public class PayChannelController {
     @RequestMapping("/edit.html")
     public String editInput(String id, ModelMap model) {
         PayChannel item = null;
-        if (StringUtils.isNotBlank(id) && NumberUtils.isNumber(id)) {
+        if (StringUtils.isNotBlank(id) && StringUtils.isNumeric(id)) {
             item = payChannelService.selectPayChannel(Integer.parseInt(id));
         }
         if (item == null) {
@@ -122,7 +122,7 @@ public class PayChannelController {
     @RequestMapping("/view.html")
     public String viewInput(String id, ModelMap model) {
         PayChannel item = null;
-        if (StringUtils.isNotBlank(id) && NumberUtils.isNumber(id)) {
+        if (StringUtils.isNotBlank(id) && StringUtils.isNumeric(id)) {
             item = payChannelService.selectPayChannel(Integer.parseInt(id));
         }
         if (item == null) {
