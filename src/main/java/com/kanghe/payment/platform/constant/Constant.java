@@ -31,4 +31,9 @@ public class Constant {
     // 服务端返回map中业务数据结果对应的key名称
     public static final String BIZ_RESULT_KEY = "bizResult";
 
+    public static final Byte GOODS_ORDER_STATUS_INIT = 0;
+    public static final Byte GOODS_ORDER_STATUS_SUCCESS = 1;
+    public static final Byte GOODS_ORDER_STATUS_COMPLETE = 2;
+    public static final Byte GOODS_ORDER_STATUS_FAIL = -1;
+
 }

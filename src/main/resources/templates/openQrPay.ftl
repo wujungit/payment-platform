@@ -37,10 +37,10 @@
                 <input type="radio" name="amount" id="amount" value="1000"> 10.00 元&nbsp;&nbsp;
                 任意: <input type="text" id="othAmt" style="width: 60px;" value=""> 元
             </h5>
-            <div class="example" >
+            <div class="example">
                 <div id="qrcode"></div>
                 <div><h3 id="vAmt" style="color: red">0.01元</h3></div>
-                <div><h4 >请使用支付宝或微信手机客户端扫一扫</h4></div>
+                <div><h4>请使用支付宝或微信手机客户端扫一扫</h4></div>
             </div>
         </div>
     </div>
@@ -48,7 +48,10 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">&copy;2017 xxpay <script src="https://s13.cnzz.com/z_stat.php?id=1262480096&web_id=1262480096" language="JavaScript"></script></p>
+        <p class="text-muted">&copy;2017 xxpay
+            <script src="https://s13.cnzz.com/z_stat.php?id=1262480096&web_id=1262480096"
+                    language="JavaScript"></script>
+        </p>
     </div>
 </footer>
 
@@ -61,26 +64,27 @@
 
 <script>
     var qrcode = new QRCode(document.getElementById("qrcode"), {
-        width : 200,
-        height : 200
+        width: 200,
+        height: 200
     });
 
-    function makeCode () {
+    function makeCode() {
         var elText = document.getElementById("othAmt");
         var amt = $.trim(elText.value);
-        var vAmt = (amt/1).toFixed(2);
+        var vAmt = (amt / 1).toFixed(2);
         if (amt == '') {
             amt = $("input[name='amount']:checked").val();
-            vAmt = (amt/100).toFixed(2);
+            vAmt = (amt / 100).toFixed(2);
         }
-        if(vAmt == 'NaN' || vAmt <= 0) {
+        if (vAmt == 'NaN' || vAmt <= 0) {
             alert("输入金额不正确");
             $("#othAmt").val('');
             return;
         }
-        $("#vAmt").text(vAmt+'元');
+        $("#vAmt").text(vAmt + '元');
         //var qrText = 'http://xxpay-shop.ngrok.cc/goods/qrPay/' + (vAmt*100);
-        var qrText = 'http://shop.xxpay.org/goods/qrPay.html?amount=' + (vAmt*100);
+        // var qrText = 'http://shop.xxpay.org/goods/qrPay.html?amount=' + (vAmt * 100);
+        var qrText = 'http://127.0.0.1:8080/goods/qrPay.html?amount=' + (vAmt * 100);
         qrcode.makeCode(qrText);
     }
 
