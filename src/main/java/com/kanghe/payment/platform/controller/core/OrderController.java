@@ -80,13 +80,13 @@ public class OrderController {
             case PayConstant.PAY_CHANNEL_WX_MWEB:
                 return wxPayService.doWxPayReq(PayConstant.WxConstant.TRADE_TYPE_MWEB, payOrder, payContext.getString("resKey"));
             case PayConstant.PAY_CHANNEL_ALIPAY_MOBILE:
-                return aliPayService.doAliPayReq(channelId, payOrder, payContext.getString("resKey"));
+                return aliPayService.doAliPayMobileReq(payOrder, payContext.getString("resKey"));
             case PayConstant.PAY_CHANNEL_ALIPAY_PC:
-                return aliPayService.doAliPayReq(channelId, payOrder, payContext.getString("resKey"));
+                return aliPayService.doAliPayPcReq(payOrder, payContext.getString("resKey"));
             case PayConstant.PAY_CHANNEL_ALIPAY_WAP:
-                return aliPayService.doAliPayReq(channelId, payOrder, payContext.getString("resKey"));
+                return aliPayService.doAliPayWapReq(payOrder, payContext.getString("resKey"));
             case PayConstant.PAY_CHANNEL_ALIPAY_QR:
-                return aliPayService.doAliPayReq(channelId, payOrder, payContext.getString("resKey"));
+                return aliPayService.doAliPayQrReq(payOrder, payContext.getString("resKey"));
             default:
                 return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "不支持的支付渠道类型[channelId=" + channelId + "]", null, null));
         }

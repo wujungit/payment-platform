@@ -11,7 +11,13 @@ import java.util.Map;
  */
 public interface IAliPayService {
 
-    String doAliPayReq(String channelId, JSONObject payOrder, String resKey);
+    String doAliPayWapReq(JSONObject payOrder, String resKey);
+
+    String doAliPayPcReq(JSONObject payOrder, String resKey);
+
+    String doAliPayMobileReq(JSONObject payOrder, String resKey);
+
+    String doAliPayQrReq(JSONObject payOrder, String resKey);
 
     String handleAliPayNotify(Map params);
 

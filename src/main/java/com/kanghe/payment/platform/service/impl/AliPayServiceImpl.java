@@ -16,7 +16,26 @@ import java.util.Map;
 @Slf4j
 public class AliPayServiceImpl implements IAliPayService {
     @Override
-    public String doAliPayReq(String channelId, JSONObject payOrder, String resKey) {
+    public String doAliPayWapReq(JSONObject payOrder, String resKey) {
+        String logPrefix = "【支付宝WAP支付下单】";
+        return null;
+    }
+
+    @Override
+    public String doAliPayPcReq(JSONObject payOrder, String resKey) {
+        String logPrefix = "【支付宝PC支付下单】";
+        return null;
+    }
+
+    @Override
+    public String doAliPayMobileReq(JSONObject payOrder, String resKey) {
+        String logPrefix = "【支付宝APP支付下单】";
+        return null;
+    }
+
+    @Override
+    public String doAliPayQrReq(JSONObject payOrder, String resKey) {
+        String logPrefix = "【支付宝当面付之扫码支付下单】";
         return null;
     }
 
