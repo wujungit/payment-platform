@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kanghe.payment.platform.mapper.IapReceiptMapper">
+    <resultMap id="BaseResultMap" type="com.kanghe.payment.platform.entity.IapReceipt">
+        <id column="pay_order_id" jdbcType="VARCHAR" property="payOrderId"/>
+        <result column="mch_id" jdbcType="VARCHAR" property="mchId"/>
+        <result column="transaction_id" jdbcType="VARCHAR" property="transactionId"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="handle_count" jdbcType="TINYINT" property="handleCount"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kanghe.payment.platform.entity.IapReceipt">
+        <result column="receipt_data" jdbcType="LONGVARCHAR" property="receiptData"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    pay_order_id, mch_id, transaction_id, `status`, handle_count, create_time, update_time
+    </sql>
+    <sql id="Blob_Column_List">
+    receipt_data
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_iap_receipt
+        where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_iap_receipt
+        <where>
+            1 = 1
+            <if test="mchId != null and mchId != ''">
+                and mch_id = #{mchId}
+            </if>
+            <if test="transOrderId != null and transOrderId != ''">
+                and trans_order_id = #{transOrderId}
+            </if>
+            <if test="mchTransNo != null and mchTransNo != ''">
+                and mch_trans_no = #{mchTransNo}
+            </if>
+            <if test="channelOrderNo != null and channelOrderNo != ''">
+                and channel_order_no = #{channelOrderNo}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="orderByClause != null">
+                order by ${orderByClause}
+            </if>
+            <if test="limit != null">
+                <if test="offset != null">
+                    limit ${offset}, ${limit}
+                </if>
+                <if test="offset == null">
+                    limit ${limit}
+                </if>
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_iap_receipt
+        <where>
+            1 = 1
+            <if test="mchId != null and mchId != ''">
+                and mch_id = #{mchId}
+            </if>
+            <if test="transOrderId != null and transOrderId != ''">
+                and trans_order_id = #{transOrderId}
+            </if>
+            <if test="mchTransNo != null and mchTransNo != ''">
+                and mch_trans_no = #{mchTransNo}
+            </if>
+            <if test="channelOrderNo != null and channelOrderNo != ''">
+                and channel_order_no = #{channelOrderNo}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_iap_receipt
+    where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" keyColumn="pay_order_id" keyProperty="payOrderId"
+            parameterType="com.kanghe.payment.platform.entity.IapReceipt" useGeneratedKeys="true">
+    insert into t_iap_receipt (mch_id, transaction_id, `status`, 
+      handle_count, create_time, update_time, 
+      receipt_data)
+    values (#{mchId,jdbcType=VARCHAR}, #{transactionId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{handleCount,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{receiptData,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="pay_order_id" keyProperty="payOrderId"
+            parameterType="com.kanghe.payment.platform.entity.IapReceipt" useGeneratedKeys="true">
+        insert into t_iap_receipt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mchId != null">
+                mch_id,
+            </if>
+            <if test="transactionId != null">
+                transaction_id,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="handleCount != null">
+                handle_count,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="receiptData != null">
+                receipt_data,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mchId != null">
+                #{mchId,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionId != null">
+                #{transactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="handleCount != null">
+                #{handleCount,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="receiptData != null">
+                #{receiptData,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kanghe.payment.platform.entity.IapReceipt">
+        update t_iap_receipt
+        <set>
+            <if test="mchId != null">
+                mch_id = #{mchId,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionId != null">
+                transaction_id = #{transactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="handleCount != null">
+                handle_count = #{handleCount,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="receiptData != null">
+                receipt_data = #{receiptData,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kanghe.payment.platform.entity.IapReceipt">
+    update t_iap_receipt
+    set mch_id = #{mchId,jdbcType=VARCHAR},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      handle_count = #{handleCount,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      receipt_data = #{receiptData,jdbcType=LONGVARCHAR}
+    where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kanghe.payment.platform.entity.IapReceipt">
+    update t_iap_receipt
+    set mch_id = #{mchId,jdbcType=VARCHAR},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      handle_count = #{handleCount,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </update>
+</mapper>

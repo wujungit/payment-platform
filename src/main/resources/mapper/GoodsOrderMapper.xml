@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kanghe.payment.platform.mapper.GoodsOrderMapper">
+    <resultMap id="BaseResultMap" type="com.kanghe.payment.platform.entity.GoodsOrder">
+        <id column="goods_order_id" jdbcType="VARCHAR" property="goodsOrderId"/>
+        <result column="goods_id" jdbcType="VARCHAR" property="goodsId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="amount" jdbcType="BIGINT" property="amount"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="pay_order_id" jdbcType="VARCHAR" property="payOrderId"/>
+        <result column="channel_id" jdbcType="VARCHAR" property="channelId"/>
+        <result column="channel_user_id" jdbcType="VARCHAR" property="channelUserId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    goods_order_id, goods_id, goods_name, amount, user_id, `status`, pay_order_id, channel_id, 
+    channel_user_id, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_order
+        where goods_order_id = #{goodsOrderId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_order
+        <where>
+            1 = 1
+            <if test="mchId != null and mchId != ''">
+                and mch_id = #{mchId}
+            </if>
+            <if test="transOrderId != null and transOrderId != ''">
+                and trans_order_id = #{transOrderId}
+            </if>
+            <if test="mchTransNo != null and mchTransNo != ''">
+                and mch_trans_no = #{mchTransNo}
+            </if>
+            <if test="channelOrderNo != null and channelOrderNo != ''">
+                and channel_order_no = #{channelOrderNo}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="orderByClause != null">
+                order by ${orderByClause}
+            </if>
+            <if test="limit != null">
+                <if test="offset != null">
+                    limit ${offset}, ${limit}
+                </if>
+                <if test="offset == null">
+                    limit ${limit}
+                </if>
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_goods_order
+        <where>
+            1 = 1
+            <if test="mchId != null and mchId != ''">
+                and mch_id = #{mchId}
+            </if>
+            <if test="transOrderId != null and transOrderId != ''">
+                and trans_order_id = #{transOrderId}
+            </if>
+            <if test="mchTransNo != null and mchTransNo != ''">
+                and mch_trans_no = #{mchTransNo}
+            </if>
+            <if test="channelOrderNo != null and channelOrderNo != ''">
+                and channel_order_no = #{channelOrderNo}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_goods_order
+    where goods_order_id = #{goodsOrderId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" keyColumn="goods_order_id" keyProperty="goodsOrderId"
+            parameterType="com.kanghe.payment.platform.entity.GoodsOrder" useGeneratedKeys="true">
+    insert into t_goods_order (goods_id, goods_name, amount, 
+      user_id, `status`, pay_order_id, 
+      channel_id, channel_user_id, create_time, 
+      update_time)
+    values (#{goodsId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{amount,jdbcType=BIGINT}, 
+      #{userId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{payOrderId,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=VARCHAR}, #{channelUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="goods_order_id" keyProperty="goodsOrderId"
+            parameterType="com.kanghe.payment.platform.entity.GoodsOrder" useGeneratedKeys="true">
+        insert into t_goods_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="payOrderId != null">
+                pay_order_id,
+            </if>
+            <if test="channelId != null">
+                channel_id,
+            </if>
+            <if test="channelUserId != null">
+                channel_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="payOrderId != null">
+                #{payOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="channelId != null">
+                #{channelId,jdbcType=VARCHAR},
+            </if>
+            <if test="channelUserId != null">
+                #{channelUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kanghe.payment.platform.entity.GoodsOrder">
+        update t_goods_order
+        <set>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null">
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="payOrderId != null">
+                pay_order_id = #{payOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="channelId != null">
+                channel_id = #{channelId,jdbcType=VARCHAR},
+            </if>
+            <if test="channelUserId != null">
+                channel_user_id = #{channelUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where goods_order_id = #{goodsOrderId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kanghe.payment.platform.entity.GoodsOrder">
+    update t_goods_order
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      pay_order_id = #{payOrderId,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=VARCHAR},
+      channel_user_id = #{channelUserId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where goods_order_id = #{goodsOrderId,jdbcType=VARCHAR}
+    </update>
+</mapper>

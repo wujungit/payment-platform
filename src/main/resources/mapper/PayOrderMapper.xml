@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kanghe.payment.platform.mapper.PayOrderMapper">
+    <resultMap id="BaseResultMap" type="com.kanghe.payment.platform.entity.PayOrder">
+        <id column="pay_order_id" jdbcType="VARCHAR" property="payOrderId"/>
+        <result column="mch_id" jdbcType="VARCHAR" property="mchId"/>
+        <result column="mch_order_no" jdbcType="VARCHAR" property="mchOrderNo"/>
+        <result column="channel_id" jdbcType="VARCHAR" property="channelId"/>
+        <result column="amount" jdbcType="BIGINT" property="amount"/>
+        <result column="currency" jdbcType="VARCHAR" property="currency"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="client_ip" jdbcType="VARCHAR" property="clientIp"/>
+        <result column="device" jdbcType="VARCHAR" property="device"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
+        <result column="body" jdbcType="VARCHAR" property="body"/>
+        <result column="extra" jdbcType="VARCHAR" property="extra"/>
+        <result column="channel_mch_id" jdbcType="VARCHAR" property="channelMchId"/>
+        <result column="channel_order_no" jdbcType="VARCHAR" property="channelOrderNo"/>
+        <result column="err_code" jdbcType="VARCHAR" property="errCode"/>
+        <result column="err_msg" jdbcType="VARCHAR" property="errMsg"/>
+        <result column="param1" jdbcType="VARCHAR" property="param1"/>
+        <result column="param2" jdbcType="VARCHAR" property="param2"/>
+        <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl"/>
+        <result column="notify_count" jdbcType="TINYINT" property="notifyCount"/>
+        <result column="last_notify_time" jdbcType="BIGINT" property="lastNotifyTime"/>
+        <result column="expire_time" jdbcType="BIGINT" property="expireTime"/>
+        <result column="pay_succ_time" jdbcType="BIGINT" property="paySuccTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    pay_order_id, mch_id, mch_order_no, channel_id, amount, currency, `status`, client_ip, 
+    device, subject, body, extra, channel_mch_id, channel_order_no, err_code, err_msg, 
+    param1, param2, notify_url, notify_count, last_notify_time, expire_time, pay_succ_time, 
+    create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_pay_order
+        where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_pay_order
+        <where>
+            1 = 1
+            <if test="mchId != null and mchId != ''">
+                and mch_id = #{mchId}
+            </if>
+            <if test="payOrderId != null and payOrderId != ''">
+                and pay_order_id = #{payOrderId}
+            </if>
+            <if test="mchOrderNo != null and mchOrderNo != ''">
+                and mch_order_no = #{mchOrderNo}
+            </if>
+            <if test="channelOrderNo != null and channelOrderNo != ''">
+                and channel_order_no = #{channelOrderNo}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="orderByClause != null">
+                order by ${orderByClause}
+            </if>
+            <if test="limit != null">
+                <if test="offset != null">
+                    limit ${offset}, ${limit}
+                </if>
+                <if test="offset == null">
+                    limit ${limit}
+                </if>
+            </if>
+        </where>
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_pay_order
+        <where>
+            1 = 1
+            <if test="mchId != null and mchId != ''">
+                and mch_id = #{mchId}
+            </if>
+            <if test="payOrderId != null and payOrderId != ''">
+                and pay_order_id = #{payOrderId}
+            </if>
+            <if test="mchOrderNo != null and mchOrderNo != ''">
+                and mch_order_no = #{mchOrderNo}
+            </if>
+            <if test="channelOrderNo != null and channelOrderNo != ''">
+                and channel_order_no = #{channelOrderNo}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_pay_order
+    where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" keyColumn="pay_order_id" keyProperty="payOrderId"
+            parameterType="com.kanghe.payment.platform.entity.PayOrder" useGeneratedKeys="true">
+    insert into t_pay_order (mch_id, mch_order_no, channel_id, 
+      amount, currency, `status`, 
+      client_ip, device, subject, 
+      body, extra, channel_mch_id, 
+      channel_order_no, err_code, err_msg, 
+      param1, param2, notify_url, 
+      notify_count, last_notify_time, expire_time, 
+      pay_succ_time, create_time, update_time
+      )
+    values (#{mchId,jdbcType=VARCHAR}, #{mchOrderNo,jdbcType=VARCHAR}, #{channelId,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=BIGINT}, #{currency,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{clientIp,jdbcType=VARCHAR}, #{device,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, 
+      #{body,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR}, #{channelMchId,jdbcType=VARCHAR}, 
+      #{channelOrderNo,jdbcType=VARCHAR}, #{errCode,jdbcType=VARCHAR}, #{errMsg,jdbcType=VARCHAR}, 
+      #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, 
+      #{notifyCount,jdbcType=TINYINT}, #{lastNotifyTime,jdbcType=BIGINT}, #{expireTime,jdbcType=BIGINT}, 
+      #{paySuccTime,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+    </insert>
+    <insert id="insertSelective" keyColumn="pay_order_id" keyProperty="payOrderId"
+            parameterType="com.kanghe.payment.platform.entity.PayOrder" useGeneratedKeys="true">
+        insert into t_pay_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="payOrderId != null">
+                pay_order_id,
+            </if>
+            <if test="mchId != null">
+                mch_id,
+            </if>
+            <if test="mchOrderNo != null">
+                mch_order_no,
+            </if>
+            <if test="channelId != null">
+                channel_id,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="currency != null">
+                currency,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="clientIp != null">
+                client_ip,
+            </if>
+            <if test="device != null">
+                device,
+            </if>
+            <if test="subject != null">
+                subject,
+            </if>
+            <if test="body != null">
+                body,
+            </if>
+            <if test="extra != null">
+                extra,
+            </if>
+            <if test="channelMchId != null">
+                channel_mch_id,
+            </if>
+            <if test="channelOrderNo != null">
+                channel_order_no,
+            </if>
+            <if test="errCode != null">
+                err_code,
+            </if>
+            <if test="errMsg != null">
+                err_msg,
+            </if>
+            <if test="param1 != null">
+                param1,
+            </if>
+            <if test="param2 != null">
+                param2,
+            </if>
+            <if test="notifyUrl != null">
+                notify_url,
+            </if>
+            <if test="notifyCount != null">
+                notify_count,
+            </if>
+            <if test="lastNotifyTime != null">
+                last_notify_time,
+            </if>
+            <if test="expireTime != null">
+                expire_time,
+            </if>
+            <if test="paySuccTime != null">
+                pay_succ_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="payOrderId != null">
+                #{payOrderId,jdbcType=VARCHAR},
+            </if>
+            <if test="mchId != null">
+                #{mchId,jdbcType=VARCHAR},
+            </if>
+            <if test="mchOrderNo != null">
+                #{mchOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="channelId != null">
+                #{channelId,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=BIGINT},
+            </if>
+            <if test="currency != null">
+                #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="clientIp != null">
+                #{clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="device != null">
+                #{device,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null">
+                #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="body != null">
+                #{body,jdbcType=VARCHAR},
+            </if>
+            <if test="extra != null">
+                #{extra,jdbcType=VARCHAR},
+            </if>
+            <if test="channelMchId != null">
+                #{channelMchId,jdbcType=VARCHAR},
+            </if>
+            <if test="channelOrderNo != null">
+                #{channelOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="errCode != null">
+                #{errCode,jdbcType=VARCHAR},
+            </if>
+            <if test="errMsg != null">
+                #{errMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="param1 != null">
+                #{param1,jdbcType=VARCHAR},
+            </if>
+            <if test="param2 != null">
+                #{param2,jdbcType=VARCHAR},
+            </if>
+            <if test="notifyUrl != null">
+                #{notifyUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="notifyCount != null">
+                #{notifyCount,jdbcType=TINYINT},
+            </if>
+            <if test="lastNotifyTime != null">
+                #{lastNotifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="expireTime != null">
+                #{expireTime,jdbcType=BIGINT},
+            </if>
+            <if test="paySuccTime != null">
+                #{paySuccTime,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.kanghe.payment.platform.entity.PayOrder">
+        update t_pay_order
+        <set>
+            <if test="mchId != null">
+                mch_id = #{mchId,jdbcType=VARCHAR},
+            </if>
+            <if test="mchOrderNo != null">
+                mch_order_no = #{mchOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="channelId != null">
+                channel_id = #{channelId,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=BIGINT},
+            </if>
+            <if test="currency != null">
+                currency = #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="clientIp != null">
+                client_ip = #{clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="device != null">
+                device = #{device,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null">
+                subject = #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="body != null">
+                body = #{body,jdbcType=VARCHAR},
+            </if>
+            <if test="extra != null">
+                extra = #{extra,jdbcType=VARCHAR},
+            </if>
+            <if test="channelMchId != null">
+                channel_mch_id = #{channelMchId,jdbcType=VARCHAR},
+            </if>
+            <if test="channelOrderNo != null">
+                channel_order_no = #{channelOrderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="errCode != null">
+                err_code = #{errCode,jdbcType=VARCHAR},
+            </if>
+            <if test="errMsg != null">
+                err_msg = #{errMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="param1 != null">
+                param1 = #{param1,jdbcType=VARCHAR},
+            </if>
+            <if test="param2 != null">
+                param2 = #{param2,jdbcType=VARCHAR},
+            </if>
+            <if test="notifyUrl != null">
+                notify_url = #{notifyUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="notifyCount != null">
+                notify_count = #{notifyCount,jdbcType=TINYINT},
+            </if>
+            <if test="lastNotifyTime != null">
+                last_notify_time = #{lastNotifyTime,jdbcType=BIGINT},
+            </if>
+            <if test="expireTime != null">
+                expire_time = #{expireTime,jdbcType=BIGINT},
+            </if>
+            <if test="paySuccTime != null">
+                pay_succ_time = #{paySuccTime,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.kanghe.payment.platform.entity.PayOrder">
+    update t_pay_order
+    set mch_id = #{mchId,jdbcType=VARCHAR},
+      mch_order_no = #{mchOrderNo,jdbcType=VARCHAR},
+      channel_id = #{channelId,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=BIGINT},
+      currency = #{currency,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      device = #{device,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      extra = #{extra,jdbcType=VARCHAR},
+      channel_mch_id = #{channelMchId,jdbcType=VARCHAR},
+      channel_order_no = #{channelOrderNo,jdbcType=VARCHAR},
+      err_code = #{errCode,jdbcType=VARCHAR},
+      err_msg = #{errMsg,jdbcType=VARCHAR},
+      param1 = #{param1,jdbcType=VARCHAR},
+      param2 = #{param2,jdbcType=VARCHAR},
+      notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      notify_count = #{notifyCount,jdbcType=TINYINT},
+      last_notify_time = #{lastNotifyTime,jdbcType=BIGINT},
+      expire_time = #{expireTime,jdbcType=BIGINT},
+      pay_succ_time = #{paySuccTime,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where pay_order_id = #{payOrderId,jdbcType=VARCHAR}
+    </update>
+</mapper>
